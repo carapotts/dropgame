@@ -56,8 +56,40 @@ function moveAllDrops(){
 		if(currentdrop.y > 250){
 			currentdrop.destroy();
 			}
+		//if the drop touched the bucket, destroy it
+		
+		
+			if(collisionCheck(user_bucket, currentdrop)){
+				currentdrop.destroy();
+			}
 	}//close for loop
 }
+function collisionCheck(big_obj,sm_obj){
+	var big_left_edge = big_obj.x;
+	var sm_left_edge = sm_obj.x;
+	var big_right_edge = big_obj.x + big_obj.width; 
+	var sm_right_edge = sm_obj.x + sm_obj.width;
+	var big_top_edge = big_obj.y;
+	var sm_top_edge = sm_obj.y;
+	var big_bottom_edge = big_obj.y + big_obj.height;
+	var sm_bottom_edge = sm_obj.y  + sm_obj.height;
+	
+	
+	//if items are touching 
+	if(sm_left_edge > big_left_edge){
+		if(sm_right_edge < big_right_edge){
+			if(sm_top_edge > big_top_edge){
+				if(sm_bottom_edge < big_bottom_edge){
+		//send "true" back to where function was called
+	return true;
+			}
+		}
+	}
+}
+	//otherwise they're not touching, so no collision (send "false" back to where function was called
+	return false;
+}
+
 //let's make a Class (blueprint) for each Drop we generate
 function Drop(){
 	this.x; //starts empty, will keep track of each Drop's left-right position
